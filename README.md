@@ -1,61 +1,73 @@
-#PhantomLink — Remote PC Control via Telegram
+# 🚀 PhantomLink — Remote PC Automation via Telegram
 
 **Developer: Cosmic**
 
-PhantomLink is a lightweight automation and remote-control system that lets you control your PC using a Telegram bot.
-You can lock your PC, take screenshots, control volume, manage apps, and even access your clipboard — all remotely.
+PhantomLink is a lightweight remote automation system that allows you to control your Windows PC using a Telegram bot.
+
+It supports system control, automation, clipboard access, and keyboard input injection — all through secure authenticated commands.
 
 ---
 
-# ⚡ Features
+# ⚡ Features (Updated Version)
 
-* 🔒 Lock / Restart / Shutdown PC
-* 📸 Screenshot capture
-* 🔊 Volume control (mute / up / down)
-* 💡 Brightness control
+## 🖥️ System Control
+
+* 🔒 Lock PC
+* 🔄 Restart / Shutdown (with authentication)
 * ❌ Kill processes
-* 🧠 List running apps
-* 📋 Clipboard access
-* 🔐 Secure command execution (secret code)
+* 🧠 List running applications
+
+## 🔊 Audio Control
+
+* Mute / Unmute system
+* Volume Up / Down
+
+## 💡 Display Control
+
+* Brightness Up / Down
+* Set brightness (0–100)
+
+## 📸 Utilities
+
+* Screenshot capture
+* Clipboard access (text + file export for large data)
+
+## ⌨️ Automation Engine (NEW)
+
+* Remote typing into active window:
+
+```bash
+/system type hello world
+```
 
 ---
 
-# 🧠 Step 1 — Create a Telegram Bot
+# 🧠 Step 1 — Create Telegram Bot
 
 1. Open Telegram
+2. Search BotFather
+3. Run:
 
-2. Search for **@BotFather**
+```bash
+/newbot
+```
 
-3. Send:
-
-   ```
-   /start
-   ```
-
-4. Then:
-
-   ```
-   /newbot
-   ```
-
-5. Follow instructions:
-
-   * Set bot name
-   * Set username
-
-6. Copy your **BOT TOKEN**
+4. Set bot name + username
+5. Copy your Bot Token
 
 ---
 
-# 🧠 Step 2 — Get Your User ID
+# 🧠 Step 2 — Get Your Telegram User ID
 
-1. Search for **@userinfobot**
-2. Send:
+Use a Telegram user info bot.
 
-   ```
-   /start
-   ```
-3. Copy your **User ID**
+Send:
+
+```bash
+/start
+```
+
+Copy your numeric ID.
 
 ---
 
@@ -67,7 +79,10 @@ PhantomLink/
 ├── main.py
 ├── requirements.txt
 ├── handlers/
+│   └── system_handler.py
 ├── utils/
+│   ├── auth.py
+│   └── state.py
 ├── config/
 │   └── secrets.json
 ├── icon/
@@ -76,15 +91,13 @@ PhantomLink/
 
 ---
 
-# 🔐 Step 4 — Configure `secrets.json`
+# 🔐 Step 4 — Configure secrets.json
 
-Create file:
+Create:
 
 ```
 config/secrets.json
 ```
-
-Add:
 
 ```json
 {
@@ -98,9 +111,7 @@ Add:
 
 # ⚙️ Step 5 — Install Dependencies
 
-Run:
-
-```
+```bash
 pip install python-telegram-bot pyautogui psutil screen-brightness-control pyperclip
 ```
 
@@ -108,11 +119,11 @@ pip install python-telegram-bot pyautogui psutil screen-brightness-control pyper
 
 # ▶️ Step 6 — Run the Bot (Development)
 
-```
+```bash
 python main.py
 ```
 
-If everything is correct, you’ll see:
+Expected output:
 
 ```
 🚀 PhantomLink Bot Running...
@@ -120,32 +131,79 @@ If everything is correct, you’ll see:
 
 ---
 
-# 📡 Step 7 — Use Commands
+# 📡 Step 7 — Available Commands
 
-Send commands in Telegram:
+## 🖥️ System Commands
 
 ```
 /system lock
+/system restart
+/system shutdown
 /system screenshot
-/system mute
-/system volup
-/system brightness 50
 /system apps
-/system clipboard
 /system kill chrome.exe
 ```
 
 ---
 
-# 📦 Step 8 — Final Folder Setup
-
-After build, go to:
+## 🔊 Audio Commands
 
 ```
-dist/
+/system mute
+/system unmute
+/system volup
+/system voldown
 ```
 
-Copy `PhantomLink.exe` into your main folder:
+---
+
+## 💡 Brightness Commands
+
+```
+/system brightup
+/system brightdown
+/system brightness 50
+```
+
+---
+
+## 📋 Clipboard
+
+```
+/system clipboard
+```
+
+---
+
+## ⌨️ Typing Automation (NEW)
+
+```
+/system type hello world
+```
+
+Types text into the currently active window.
+
+---
+
+# 📦 Step 8 — Build EXE (Final Release)
+
+Install PyInstaller:
+
+```bash
+pip install pyinstaller
+```
+
+Build:
+
+```bash
+pyinstaller --onefile --noconsole --name "PhantomLink" --icon=icon/Icon.ico main.py
+```
+
+---
+
+# 📁 Step 9 — Final Release Structure
+
+After build:
 
 ```
 PhantomLink/
@@ -155,89 +213,65 @@ PhantomLink/
 │   └── secrets.json
 ```
 
-⚠️ **IMPORTANT:**
+⚠️ Important:
 
-* Keep `config` folder in the same directory as `.exe`
-* Do NOT rename `secrets.json`
-
----
-
-# 🖥️ Step 9 — Add to Startup
-
-### Open Startup Folder:
-
-Press:
-
-```
-Win + R
-```
-
-Type:
-
-```
-shell:startup
-```
+* config folder must stay next to .exe
+* Do NOT rename secrets.json
 
 ---
 
-### Add Shortcut:
+# 🖥️ Step 10 — Add to Startup
 
-1. Right-click `PhantomLink.exe` → Create Shortcut
-2. Copy shortcut
-3. Paste into Startup folder
+Open startup folder:
+
+```
+Win + R → shell:startup
+```
+
+Add shortcut of:
+
+```
+PhantomLink.exe
+```
+
+Recommended:
+
+* Set shortcut → Run Minimized
 
 ---
 
-### Optional (Recommended):
+# 🔐 Security System
 
-* Right-click shortcut → Properties
-* Set **Run: Minimized**
-
----
-
-# 🔐 Security Notes
-
-* Only your Telegram ID can control the bot
-* Sensitive commands like Shutdown and Restart require THE Authentication code
-* Keep your `secrets.json` private
+* Only authorized Telegram user can control the system
+* Sensitive actions require authentication code
+* Unauthorized users are blocked automatically
 
 ---
 
 # ⚠️ Limitations
 
-* Clipboard works only for text
+* Typing works only on active/focused window
+* Clipboard is text-based only
 * Some features may not work on lock screen
-* Antivirus may flag the `.exe` (false positive, But You are Smart Enough to check the code Yourself)
+* Antivirus may flag EXE (false positive due to PyInstaller)
 
 ---
 
-# 🧠 Future Improvements
+# 🧠 Future Upgrades
 
+* Macro recorder (mouse + keyboard replay system)
 * GUI dashboard
-* Live monitoring (CPU/RAM)
-* Automation macros
-* Encrypted config
-* Remote file access
-
----
-
-# 😈 Final Words
-
-PhantomLink is more than a bot — it’s a **remote control system for your machine**.
-
-This is a:
-
-* A Telegram-controlled system
-* A deployable Windows application
-* A foundation for full automation
+* Encrypted configuration system
+* Background stealth mode
+* Live system monitoring
 
 ---
 
 # 👤 Developer
 
 **Cosmic**
-Cyber Security Specialist · Developer · Automation Enthusiast
+Cyber Security Specialist · Automation Developer · AI Enthusiast
 
 ---
 
-🔥 *Control your system. Automate everything. Stay in command.*
+🔥 Control your system. Automate everything. Stay in command.
