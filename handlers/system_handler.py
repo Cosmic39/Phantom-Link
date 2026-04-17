@@ -3,6 +3,7 @@ import psutil
 import pyautogui
 import screen_brightness_control as sbc
 import pyperclip
+import time
 
 
 # ---------------- SYSTEM COMMANDS ---------------- #
@@ -34,7 +35,7 @@ def mute_system():
 
 
 def unmute_system():
-    pyautogui.press("volumemute")  # toggle
+    pyautogui.press("volumemute")
 
 
 def volume_up(steps=5):
@@ -96,3 +97,15 @@ def get_clipboard():
         return data if data else "Clipboard is empty."
     except Exception as e:
         return f"Error reading clipboard: {e}"
+
+
+# ---------------- KEYBOARD TYPE FUNCTION ---------------- #
+
+def type_text(text, interval=0.01, delay=1):
+    """
+    Types text on the active window.
+    - delay: time before typing starts
+    - interval: typing speed
+    """
+    time.sleep(delay)
+    pyautogui.write(text, interval=interval)
