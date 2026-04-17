@@ -20,7 +20,8 @@ from handlers.system_handler import (
     set_brightness,
     close_process,
     list_running_apps,
-    get_clipboard   # ✅ NEW IMPORT
+    get_clipboard,
+    type_text   # ✅ NEW IMPORT
 )
 
 # Load config
@@ -51,7 +52,8 @@ async def system_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "/system brightness <0-100>\n"
             "/system kill <process.exe>\n"
             "/system apps\n"
-            "/system clipboard"   # ✅ NEW
+            "/system clipboard\n"
+            "/system type <text>"   # ✅ NEW
         )
         return
 
@@ -133,7 +135,7 @@ async def system_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = "🧠 Running Apps:\n\n" + "\n".join(apps)
         await update.message.reply_text(message)
 
-    # 📋 CLIPBOARD (NEW FEATURE)
+    # 📋 CLIPBOARD
     elif cmd == "clipboard":
         data = get_clipboard()
 
@@ -144,6 +146,17 @@ async def system_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_document(open("clipboard.txt", "rb"))
         else:
             await update.message.reply_text(f"📋 Clipboard:\n\n{data}")
+
+    # ⌨️ TYPE FEATURE (NEW)
+    elif cmd == "type":
+        if len(context.args) < 2:
+            await update.message.reply_text('⚠️ Usage: /system type <text>')
+            return
+
+        text = " ".join(context.args[1:])
+        type_text(text)
+
+        await update.message.reply_text("⌨️ Typed on PC.")
 
     else:
         await update.message.reply_text("⚠️ Unknown system command.")
