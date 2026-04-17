@@ -236,7 +236,7 @@ PhantomLink.exe
 
 Recommended:
 
-* Set shortcut → Run Minimized
+* Set shortcut → Properties-> Run Minimized
 
 ---
 
