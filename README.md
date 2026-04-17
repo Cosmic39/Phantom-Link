@@ -137,23 +137,7 @@ Send commands in Telegram:
 
 ---
 
-# 🔥 Step 8 — Convert to EXE
-
-Install PyInstaller:
-
-```
-pip install pyinstaller
-```
-
-Build the executable:
-
-```
-pyinstaller --onefile --noconsole --name "PhantomLink" --icon=icon/Icon.ico main.py
-```
-
----
-
-# 📦 Step 9 — Final Folder Setup
+# 📦 Step 8 — Final Folder Setup
 
 After build, go to:
 
@@ -178,7 +162,7 @@ PhantomLink/
 
 ---
 
-# 🖥️ Step 10 — Add to Startup
+# 🖥️ Step 9 — Add to Startup
 
 ### Open Startup Folder:
 
