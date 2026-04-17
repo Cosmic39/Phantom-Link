@@ -102,8 +102,8 @@ config/secrets.json
 ```json
 {
   "bot_token": "YOUR_BOT_TOKEN",
-  "authorized_user_id": 123456789,
-  "secret_code": "1234"
+  "authorized_user_id": YOUR USER ID,
+  "secret_code": "YOUR AUTHENTICATION CODE YOU CAN SET"
 }
 ```
 
