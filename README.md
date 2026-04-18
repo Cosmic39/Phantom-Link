@@ -1,4 +1,4 @@
-# 🚀 PhantomLink — Remote PC Automation via Telegram
+# PhantomLink — Remote Administration Tool via Telegram
 
 **Developer: Cosmic**
 
